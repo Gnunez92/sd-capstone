@@ -12,6 +12,7 @@ const AppError = require('./utilities/AppError');
 const session = require('express-session');
 const flash = require('connect-flash');
 
+const MongoStore = require('connect-mongo');
 
 const passport = require('passport');
 const PassportLocal = require('passport-local');
@@ -25,17 +26,31 @@ const reviewRouter = require('./routes/reviews');
 const authRouter = require('./routes/users')
 
 mongoose
-    .connect('mongodb://localhost:27017/MOOCdb',{
+    .connect(process.env.DB_STRING, {
         useNewUrlParser: true,
         useCreateIndex:true,
         useUnifiedTopology: true,
+        useFindAndModify: true,
     })
     .then(() => {
         console.log('Mongo Connection Open');
     })
     .catch((error) => handleError(error))
 
+const store = MongoStore.create({
+    mongoUrl: process.env.DB_STRING,
+    touchAfter: 24*60*60,
+    crypto: {
+        secret:'drake'
+    },
+});
+
+store.on('error', (e) => {
+    console.log('Store error', e)
+});
+
 const sessionConfig = {
+    store,
 	secret: 'drake',
 	resave: false,
 	saveUninitialized: true,

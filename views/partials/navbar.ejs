@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-xl navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/moocs">LearnGreen Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Green Classes
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/moocs/all">All Classes</a></li>
+              <% if(user) { %>
+                <li><a class="dropdown-item" href="/<%=user._id%>">My Classes</a></li>
+                <li><a class="dropdown-item" href="/moocs/new">New Class</a></li>
+              <% } %>
+            </ul>
+          </li >
+          <li class="nav-item">
+            <a href="/moocs" class="nav-link">Green Cities</a>
+          </li>
+          <li class="nav-item">
+            <a href="/moocs" class="nav-link">Green Companies</a>
+          </li>
+          <li class="nav-item">
+            <a href="/moocs" class="nav-link">Green Transportation</a>
+          </li>
+          <li class="nav-item">
+            <a href="/moocs" class="nav-link">Giving Thanks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/moocs/about">About</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <% if(!user){ %>
+            <li class="nav-item">
+              <a href="/login" class="nav-link active" aria-current="page">Login</a>
+            </li>
+            <li class="nav-item">
+              <a href="/register" class="nav-link">Register</a>
+            </li>
+          <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/<%=user._id%>">Welcome, <%= user.username  %> </a>
+            </li>          
+            <li class="nav-item">
+              <a href="/logout" class="nav-link">Logout</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>

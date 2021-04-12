@@ -1,0 +1,44 @@
+<% if(user) { %>
+    <div class="bubble rounded">
+    <h2>Leave a Review</h2>
+    <form action="/moocs/<%=mooc.id%>/reviews" method="POST">
+        <div>
+            <label class="form-label" for="rating">Recommend?</label>
+            <img src="https://res.cloudinary.com/dd87wt7iz/image/upload/v1618080466/LACI%20capstone/tc6pg8fnckw0ndzestyu.png" alt="" width="50" height="45">
+            <input class="form-range col-3" name="review[rating]" type="range" min="0" max="1" step="1">
+            <img src="https://res.cloudinary.com/dd87wt7iz/image/upload/v1618080435/LACI%20capstone/roefq9z0cfizdrdwy1ek.png" alt="" width="50" height="45">
+        </div>
+        <div>
+            <label class="form-label" for="body">Thoughts on this class?</label>
+            <textarea class="form-control" name="review[body]" id="body" cols="30" rows="5" required></textarea>
+        </div>
+        <button class="btn btn-light" type="submit">Submit Review</button>
+    </form>
+    </div>
+    <hr>
+    <% } %>
+    
+    <div class="bubble rounded">
+        <h2>Reviews</h2>
+        <% if(!mooc.reviews.length) { %>
+            <p>No Reviews Yet!</p>
+        <% } else { %>
+        <% for (let review of mooc.reviews) {%>
+        <div class="review rounded">
+            <p><a href="/<%=review.author._id%>"><%=review.author.username%></a> says: <%=review.body%></p>
+            <p>Recommended?: 
+                <% if(parseInt(review.rating)){%>
+                    <img src="https://res.cloudinary.com/dd87wt7iz/image/upload/v1618080435/LACI%20capstone/roefq9z0cfizdrdwy1ek.png" alt="" width="20" height="20">
+                <% } else { %>
+                    <img src="https://res.cloudinary.com/dd87wt7iz/image/upload/v1618080466/LACI%20capstone/tc6pg8fnckw0ndzestyu.png" alt="" width="20" height="20">
+                <% } %>
+            </p>
+            <% if(user && review.author.equals(user)){ %>
+            <form action="/moocs/<%=mooc.id%>/reviews/<%=review.id%>?_method=delete" method="POST">
+                <button class="btn btn-danger position-relative" type="submit">Delete This Review</button>
+            </form>
+            <% } %>
+        </div>
+        <%}}%>
+    </div>
+    

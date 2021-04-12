@@ -1,0 +1,45 @@
+<% layout("./layouts/boilerplate")%>
+<div class="container bubble rounded">
+<div class="col-6 offset-3 li-item rounded">
+    <h1 class="new-title text-center">Update <%= mooc.name %></h1>
+    <form class="needs-validation" action="/moocs/<%= mooc.id %>/?_method=PUT" method="POST" novalidate>
+        <div class="row-3">
+            <label class="form-label" for="name">MOOC Name</label>
+            <input class="form-control" type="text" id="name" name="mooc[name]" value="<%= mooc.name %>" required>
+        </div>
+        <div class="row-3">
+            <label class="form-label" for="instructors">Instructors(Seperated By Semicolon ; )</label>
+            <textarea class="form-control" name="mooc[instructors]" id="instructors" cols="30" rows="1" required><%- mooc.instructors %></textarea>
+        </div>
+        <div class="row-3">
+            <label class="form-label" for="topics">Topics(Seperated By Semicolon ; )</label>
+            <textarea class="form-control" name="mooc[topics]" id="topics" cols="30" rows="1" required><%- mooc.topics %></textarea>
+        </div>
+        <div class="row-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-control" name="mooc[description]" id="description" cols="50" rows="2" required><%- mooc.description %></textarea>
+        </div>
+        <div class="row-3">
+            <label class="form-label" for="difficulty">Difficulty</label>
+            <select name="mooc[difficulty]" id="difficulty">
+                <% for(let i of ['Beginner', 'Intermediate', 'Advanced']){ %> 
+                <option value="<%= i %>" <% if(mooc.difficulty === i){ %> selected <% } %>><%= i %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="row-3">
+            <label class="form-label" for="hosting_site">Hosting Site</label>
+            <input class="form-control" type="text" id="hosting_site" name="mooc[hosting_site]" value="<%= mooc.hosting_site %>" required>
+        </div>
+        <div class="row-3">
+            <label class="form-label" for="course_link">Course Link</label>
+            <input class="form-control" type="text" id="course_link" name="mooc[course_link]" value="<%= mooc.course_link %>" required>
+        </div>
+        <div class="row-3">
+            <hr>
+            <button class="btn btn-light">Submit</button>
+            <a href="/moocs/<%= mooc.id %>"><button class="btn btn-light" type="button">Go Back</button></a>
+        </div>
+    </form>
+</div>
+</div>

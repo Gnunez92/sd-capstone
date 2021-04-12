@@ -1,0 +1,11 @@
+<% layout("./layouts/boilerplate")%>
+<div class="bubble rounded">
+<h1>Welcome to LearnGreen!</h1>
+<h2>Check out what's been happening!</h2>
+<ul>
+    <% for(let mooc of moocs.reverse().slice(0,10)) { %>
+        <li class="li-item bubble"><a href="/moocs/<%= mooc.id %>"><img src="<%=mooc.image.url%>" alt="" height="50" width="50"></a><a href="/<%=mooc.submittedBy._id%>"><%=mooc.submittedBy.username %></a> has started learning <a href="/moocs/<%= mooc.id %>"><%= mooc.name %></a></li>
+
+    <% } %>
+</ul>
+</div>

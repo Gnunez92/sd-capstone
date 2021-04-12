@@ -1,0 +1,9 @@
+<% layout("./layouts/boilerplate") %>
+<% if(user && user._id.equals(id)) { %>
+<h1>Welcome To Your Dashboard, <%=user.username%></h1>
+
+
+<% } else { %>
+<h1><%=username%>'s Page</h1>
+
+<% } %>

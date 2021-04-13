@@ -11,6 +11,8 @@ const ejsMate = require('ejs-mate');
 const AppError = require('./utilities/AppError');
 const session = require('express-session');
 const flash = require('connect-flash');
+const mongodb_url = process.env.DB_STRING || 'mongodb://localhost:27017/MOOCdb';
+const secret = process.env.SECRET || 'drake';
 
 const MongoStore = require('connect-mongo');
 
@@ -26,7 +28,7 @@ const reviewRouter = require('./routes/reviews');
 const authRouter = require('./routes/users')
 
 mongoose
-    .connect(process.env.DB_STRING, {
+    .connect(mongodb_url, {
         useNewUrlParser: true,
         useCreateIndex:true,
         useUnifiedTopology: true,
@@ -38,10 +40,10 @@ mongoose
     .catch((error) => handleError(error))
 
 const store = MongoStore.create({
-    mongoUrl: process.env.DB_STRING,
+    mongoUrl: mongodb_url,
     touchAfter: 24*60*60,
     crypto: {
-        secret:'drake'
+        secret
     },
 });
 
@@ -51,7 +53,7 @@ store.on('error', (e) => {
 
 const sessionConfig = {
     store,
-	secret: 'drake',
+	secret,
 	resave: false,
 	saveUninitialized: true,
 	cookie: {

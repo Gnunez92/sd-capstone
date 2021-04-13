@@ -20,7 +20,7 @@ const passport = require('passport');
 const PassportLocal = require('passport-local');
 const User = require('./models/user');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Routers
 const moocRouter = require('./routes/moocs');

@@ -1,6 +1,6 @@
 const MOOC = require('../models/mooc');
 const ObjectId = require('mongoose').Types.ObjectId;
-const { cloudinary } = require('cloudinary')
+const { cloudinary } = require('../cloudinary/index')
 
 
 module.exports.renderIndex = async (req, res) => {

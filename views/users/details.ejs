@@ -1,9 +1,22 @@
 <% layout("./layouts/boilerplate") %>
+<div class="bubble rounded">
 <% if(user && user._id.equals(id)) { %>
 <h1>Welcome To Your Dashboard, <%=user.username%></h1>
-
-
+<h3>These are the courses you have started:</h3>
 <% } else { %>
 <h1><%=username%>'s Page</h1>
-
+<h3><%=username%> has joined these courses:</h3>
 <% } %>
+<ul>
+    <% for(let mooc of user_moocs.reverse()) { %>
+        <li class="li-item bubble"><a href="/moocs/<%= mooc.id %>"><img src="<%=mooc.image.url%>" alt="" height="50" width="50"></a><a href="/moocs/<%= mooc.id %>"><%= mooc.name %></a>
+        <% if(user && user._id.equals(id)) { %>
+            <form action="/moocs/<%=mooc.id%>/delete?_method=DELETE" method="POST">
+                <a href="/moocs/<%=mooc.id%>/edit"><button class="btn btn-light" type="button">Go to Edit Page</button></a>
+                <button class="btn btn-danger" type="submit">Remove Class From List</button>
+            </form>
+        <% } %>
+        </li>
+    <% } %>
+</ul>
+</div>

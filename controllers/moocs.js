@@ -1,5 +1,6 @@
 const MOOC = require('../models/mooc');
 const ObjectId = require('mongoose').Types.ObjectId;
+const { cloudinary } = require('cloudinary')
 
 
 module.exports.renderIndex = async (req, res) => {
@@ -80,6 +81,8 @@ module.exports.updateMOOC = async (req, res) => {
 
 module.exports.deleteMOOC = async (req, res) => {
     const {id} = req.params;
+    const mooc = await MOOC.findById(id);
+    await cloudinary.uploader.destroy(mooc.image.filename);
     await MOOC.findByIdAndDelete(id);
     res.redirect('/moocs');
 }
